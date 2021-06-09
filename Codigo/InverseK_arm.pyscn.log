@@ -1,0 +1,26 @@
+
+--- NEW SESSION: 07/06/2021 13:25:41 ---
+/sarm/visu/OglModel.material = Default Diffuse 1 0 0.698039 0.698039 1 Ambient 1 0 0.137255 0.137255 1 Specular 0 0 0.698039 0.698039 1 Emissive 0 0 0.698039 0.698039 1 Shininess 0 45 
+
+--- NEW SESSION: 07/06/2021 15:46:37 ---
+/feuille/controlledPoints/nord.cableLength = 68.2837
+/feuille/controlledPoints/nord.displacement = 19.9999
+/feuille/controlledPoints/nord.force = 2106.92
+/feuille/controlledPoints/nord.cableLength = 68.2837
+/feuille/controlledPoints/nord.displacement = 19.9999
+/feuille/controlledPoints/nord.force = 2106.92
+/sarm/cff.showColor = 0.2 0.898039 0.298039 1
+/sarm/RestShapeSpringsForceField.springColor = 0 1 0 1
+
+--- NEW SESSION: 07/06/2021 17:21:43 ---
+/eobject/tendon1/CableActuator.maxForce = 0
+/eobject/tendon1/CableActuator.minForce = -0.01
+/eobject/tendon1/CableActuator.maxPositiveDisp = -0.03
+/eobject/tendon1/CableActuator.displayCableLimit = 1
+/eobject/tendon1/MechanicalObject.externalForce = 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+/eobject/tendon1/Mapping/mapper.map = 18794 0.0979456 0.301504 0.155594
+ 730 0.0120506 0.207264 0.696678
+ 281 0.445844 0.445149 0.0730274
+ 14551 0.650398 0.186177 0.0241816
+ 2039 0.410367 -0 0.271839
+

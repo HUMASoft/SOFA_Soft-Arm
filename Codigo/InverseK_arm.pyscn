@@ -1,0 +1,101 @@
+    # -*- coding: utf-8 -*-
+
+import Sofa
+from stlib.visuals import ShowGrid
+from stlib.physics.deformable import ElasticMaterialObject
+from softrobots.inverse.actuators import PullingCable
+from stlib.scene import Node
+from stlib.physics.constraints import FixedBox
+from splib.loaders import loadPointListFromFile
+
+
+
+
+
+
+def createScene(rootNode):
+    # -*- coding: utf-8 -*-
+    ShowGrid(rootNode)
+
+    rootNode.createObject('RequiredPlugin', pluginName='SoftRobots')
+    rootNode.createObject('RequiredPlugin', pluginName='CGALPlugin')
+
+    rootNode.createObject('VisualStyle', displayFlags='showVisualModels hideBehaviorModels showCollisionModels hideBoundingCollisionModels hideForceFields showInteractionForceFields hideWireframe')
+
+    rootNode.createObject('FreeMotionAnimationLoop')
+    rootNode.createObject('QPInverseProblemSolver', printLog='0')
+
+#goal
+    # goal = rootNode.createChild('goal')
+    # goal.createObject('EulerImplicit', firstOrder='1')
+    # goal.createObject('CGLinearSolver', iterations='100', tolerance="1e-5", threshold="1e-5")
+    # goal.createObject('MechanicalObject', name='goalMO', position="35.0 200.0 42.0")
+    # goal.createObject('Sphere', radius='5', group='1')
+    # goal.createObject('UncoupledConstraintCorrection')
+              
+
+
+    rootNode.createObject('BackgroundSetting', color='0 0.168627 0.211765')
+    rootNode.createObject('OglSceneFrame', style="Arrows", alignment="TopRight")
+
+    ##########################################
+    # FEM Model                              #
+    ##########################################
+    
+    
+    eobject = ElasticMaterialObject(rootNode,
+                                   volumeMeshFileName="mesh/D100-H40-I34-SIN.msh",
+                                   name='eobject',
+                                   poissonRatio=0.3,
+                                   youngModulus=18000,
+                                   totalMass=0.5,
+                                   surfaceColor=[0.0, 0.3, 0.9],
+                                   surfaceMeshFileName="mesh/Brazo_20cm.stl",
+                                   rotation=[0.0, 0.0, 0.0],
+                                   translation=[0.0, 0.0, 0.0])
+
+    FixedBox(eobject, doVisualization=True, atPositions=[73,10,65,0,0,0])
+
+    ##########################################
+    # Cable                                  #
+    ##########################################
+
+    cable = PullingCable(eobject,
+                         cableGeometry=[[35.0, 40.0, 10.0],
+                         [35.0, 80.0, 10.0],
+                         [35.0, 120.0, 10.0],
+                         [35.0, 160.0, 10.0],
+                         [35.0, 200.0, 10.0]],
+                         pullPointLocation=[35.0,0.0, 10.0],
+                         name='tendon1')
+
+    cable2 = PullingCable(eobject,
+                         cableGeometry=[[10.0, 200.0, 55.0]],
+                         pullPointLocation=[10.0,0.0, 55.0],
+                         name='tendon2')
+
+    cable3 = PullingCable(eobject,
+                         cableGeometry=[[63.0, 200.0, 55.0]],
+                         pullPointLocation=[63.0,0.0, 55.0],
+                         name='tendon3')    
+
+
+    goal = rootNode.createChild('goal')
+    goal.createObject('EulerImplicit', firstOrder='1')
+    goal.createObject('CGLinearSolver', iterations='100', tolerance="1e-5", threshold="1e-5")
+    goal.createObject('MechanicalObject', name='goalMO',
+                      position="35.0 200.0 40.0")
+    goal.createObject('Sphere', radius='5')
+    goal.createObject('UncoupledConstraintCorrection')
+
+
+    effector = eobject.createChild('fingertip')
+    effector.createObject('MechanicalObject',
+             position=("35.0 200.0 40.0"))
+    effector.createObject('PositionEffector', template='Vec3d',
+              indices="0",
+              effectorGoal="@../../goal/goalMO.position")
+    effector.createObject('BarycentricMapping', mapForces="false", mapMasses="false")
+
+
+    return rootNode

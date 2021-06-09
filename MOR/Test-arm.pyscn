@@ -1,0 +1,69 @@
+    # -*- coding: utf-8 -*-
+from stlib.physics.deformable import ElasticMaterialObject
+from stlib.physics.constraints import FixedBox
+from stlib.physics.collision import CollisionMesh
+from stlib.scene import Node
+from softrobots.actuators import PullingCable
+from splib.loaders import loadPointListFromFile
+from stlib.scene import MainHeader, ContactHeader
+from stlib.visuals import ShowGrid
+
+import os 
+import sys
+import Sofa
+# class ArmController(Sofa.PythonScriptController):
+#     def __init__(self, node, cable):
+#         self.cableconstraintvalue = cable.getObject("CableConstraint").findData('value')
+#         self.name = "ArmController"
+
+#     def onKeyPressed(self,c):
+#         if (c == "+"):
+#             self.cableconstraintvalue.value =  self.cableconstraintvalue.value[0][0] + 5.
+#             print ('hello !')
+#             print self.cableconstraintvalue.value
+#         if (c == "-"):
+#             self.cableconstraintvalue.value =  self.cableconstraintvalue.value[0][0] - 5.
+#             print 'bye !'
+#             print (self.cableconstraintvalue.value)
+
+# def SArm(parentNode=None, name="SArm",
+#            rotation=[0.0, 0.0, 0.0], translation=[0.0, 0.0, 0.0],
+#            fixingBox=[0.0,0.0,0.0], pullPointLocation=[0.0,0.0,0.0]):
+
+#     sarm = Node(parentNode, "SArm")
+    
+#     rotation=[]
+
+    # ArmController(sarm, cable)
+meshPath = os.path.dirname(os.path.abspath(__file__))+'/mesh'
+
+def createScene(rootNode):
+    # -*- coding: utf-8 -*-
+
+    m=MainHeader(rootNode, plugins=["SoftRobots","SofaPython","ModelOrderReduction"])
+    m.getObject("VisualStyle").displayFlags='showForceFields showBehaviorModels showInteractionForceFields'
+    ContactHeader(rootNode, alarmDistance=4, contactDistance=3, frictionCoef=0.08)
+    ShowGrid(rootNode)
+    #SArm(rootNode)
+
+    eobject = ElasticMaterialObject(rootNode,
+                                   volumeMeshFileName="mesh/D100-H40-I34-SIN.msh",
+                                   name='eobject',
+                                   poissonRatio=0.3,
+                                   youngModulus=18000,
+                                   totalMass=0.5,
+                                   surfaceColor=[0.0, 0.3, 0.9],
+                                   surfaceMeshFileName="mesh/Brazo_20cm.stl",
+                                   rotation=[0.0, 0.0, 0.0],
+                                   translation=[0.0, 0.0, 0.0])
+    eobject.createObject('GenericConstraintCorrection',solverName='solver')
+
+    FixedBox(eobject, doVisualization=True, atPositions=[73,10,65,0,0,0])
+    cable = PullingCable(eobject,
+                         cableGeometry=[[35.0,199.0,10.0]],
+                         pullPointLocation=[35.0,0.0,10.0],
+                         name='tendon')
+
+    #CollisionMesh(eobject,surfaceMeshFileName="/mesh/Brazo_20cm.stl", name="part0")
+
+    return rootNode

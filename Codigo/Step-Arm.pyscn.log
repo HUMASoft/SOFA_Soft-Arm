@@ -1,0 +1,14 @@
+
+--- NEW SESSION: 09/06/2021 18:34:22 ---
+/SArm/eobject/tendon/MechanicalObject.velocity = -44.2168 -0.556804 7.98211 201.334 -3.44645 -11.6021 346.158 9.55553 -11.7458 -295.375 18.4534 -0.757473 -258.834 -15.5227 13.2188 428.078 0.297397 -36.8319 566.145 8.18029 -23.0765 -477.746 -2.65669 -39.594 -594.675 1.10008 63.2898 1080.47 -15.2496 -138.637 601.391 -10.3081 -56.6405 0 0 0 0 0 0 0 0 0
+/SArm/eobject/tendon/MechanicalObject.constraint = 0 11 0 -0.11173 -0.00502625 -0.0211551  1 0.0601511 0.00420111 0.00835864  2 0.244953 -0.0221869 -0.00173041  3 -0.221503 0.0227048 0.00200188  4 -0.220163 -0.0261448 0.0212733  5 0.199254 0.0255985 -0.0241708  6 0.363784 -0.0563025 0.00859578  7 -0.314877 0.0551257 -0.0349671  8 -0.604064 -0.18856 0.118663  9 0.798744 0.152681 -0.222845  10 -2.55367 -11.5385 2.08366  
+
+/SArm/eobject/tendon/CableConstraint.cableLength = 187.524
+/SArm/eobject/tendon/CableConstraint.force = 4433.3
+/SArm/eobject/tendon/CableConstraint.displacement = 12.4764
+/SArm/eobject/tendon/CableConstraint.cableLength = 187.53
+/SArm/eobject/tendon/CableConstraint.force = 4435.68
+/SArm/eobject/tendon/CableConstraint.displacement = 12.4698
+/SArm/eobject/tendon/CableConstraint.cableLength = 200
+/SArm/eobject/tendon/CableConstraint.displacement = -2.01112e-10
+/SArm/eobject/tendon/CableConstraint.force = -0.0133731
