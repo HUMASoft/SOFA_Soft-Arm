@@ -39,35 +39,6 @@ cable = ObjToAnimate("/eobject/cable", incr=5,incrPeriod=10,rangeOfAction=40)
 listObjToAnimate = [cable]
 addRigidBodyModes = [0,0,0]
 
-### STARFISH ROBOT PARAM
-# nodeToReduce ='/model'
-# centerCavity = ObjToAnimate("model/centerCavity", incr=350,incrPeriod=2,rangeOfAction=3500)
-# rearLeftCavity = ObjToAnimate("model/rearLeftCavity", incr=200,incrPeriod=2,rangeOfAction=2000)
-# rearRightCavity = ObjToAnimate("model/rearRightCavity", incr=200,incrPeriod=2,rangeOfAction=2000)
-# frontLeftCavity = ObjToAnimate("model/frontLeftCavity", incr=200,incrPeriod=2,rangeOfAction=2000)
-# frontRightCavity = ObjToAnimate("model/frontRightCavity", incr=200,incrPeriod=2,rangeOfAction=2000)
-# listObjToAnimate = [centerCavity,rearLeftCavity,rearRightCavity,frontLeftCavity,frontRightCavity]
-# addRigidBodyModes = [1,1,1]
-
-### SOFIA
-# nodeToReduce ='/SofiaLeg'
-# actuator = ObjToAnimate("SofiaLeg_actuator/actuatorState","shakingSofia",incr=0.05,incrPeriod=3,rangeOfAction=6.4,dataToWorkOn="position",angle=0,rodRadius=0.7)
-# listObjToAnimate = [actuator]
-# addRigidBodyModes = [0,0,0]
-
-### LIVER
-# nodeToReduce ='/liver'
-# actuator = ObjToAnimate("actuator/actuatorState","shakingSofia",incr=0.4,incrPeriod=3,rangeOfAction=6.2,dataToWorkOn="position",angle=0,rodRadius=0.7)
-# listObjToAnimate = [actuator]
-# addRigidBodyModes = [0,0,0]
-
-### HEXABEAM
-#nodeToReduce ='/M1'
-#actuator = ObjToAnimate("M1/cableNode", incr=1,incrPeriod=5,rangeOfAction=5)
-#listObjToAnimate = [actuator]
-#addRigidBodyModes = [0,0,0]
-
-
 # Tolerance
 tolModes = 0.001
 tolGIE =  0.05

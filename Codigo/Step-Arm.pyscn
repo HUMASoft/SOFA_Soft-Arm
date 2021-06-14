@@ -28,10 +28,10 @@ def SArm(parentNode=None, name="SArm",
 
     sarm = Node(parentNode, "SArm")
     eobject = ElasticMaterialObject(sarm,
-                                   volumeMeshFileName="mesh/D100-H40-I34-SIN.msh",
+                                   volumeMeshFileName="mesh/reduce1.vtk",
                                    name='eobject',
                                    poissonRatio=0.3,
-                                   youngModulus=180,
+                                   youngModulus=18000,
                                    totalMass=0.5,
                                    surfaceColor=[0.0, 0.3, 0.9],
                                    surfaceMeshFileName="STL/Brazo_20cm.stl",
@@ -40,7 +40,7 @@ def SArm(parentNode=None, name="SArm",
 
     FixedBox(eobject, doVisualization=True, atPositions=[73,10,65,0,0,0])
     cable = PullingCable(eobject,
-                         cableGeometry=loadPointListFromFile("cable/cable3.json"),
+                         cableGeometry= loadPointListFromFile("cable/cable32.json"),
                          name='tendon',
                          pullPointLocation='35.0 0.0 10.0')
 

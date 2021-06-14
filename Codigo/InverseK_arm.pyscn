@@ -18,7 +18,6 @@ def createScene(rootNode):
     ShowGrid(rootNode)
 
     rootNode.createObject('RequiredPlugin', pluginName='SoftRobots')
-    rootNode.createObject('RequiredPlugin', pluginName='CGALPlugin')
 
     rootNode.createObject('VisualStyle', displayFlags='showVisualModels hideBehaviorModels showCollisionModels hideBoundingCollisionModels hideForceFields showInteractionForceFields hideWireframe')
 
