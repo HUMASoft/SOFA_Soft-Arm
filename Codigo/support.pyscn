@@ -1,0 +1,74 @@
+    # -*- coding: utf-8 -*-
+from stlib.physics.deformable import ElasticMaterialObject
+from stlib.physics.constraints import FixedBox
+from stlib.physics.collision import CollisionMesh
+from stlib.scene import Node
+from softrobots.actuators import PullingCable
+from splib.loaders import loadPointListFromFile
+
+
+def Support(parentNode=None, name="Support",
+           rotation=[0,60,0], translation=[36,200,40]):
+
+    sup= Node(parentNode, "Support")
+
+
+    totalMass = 1.0
+    volume = 1.0
+    inertiaMatrix = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+
+    sup.createObject('MechanicalObject', name="DOF", template="Rigid3d", translation=translation, rotation=rotation)
+    sup.createObject('UniformMass', totalMass = 0.1)#  name="vertexMass", vertexMass=[totalMass, volume, inertiaMatrix[:]])
+    sup.createObject('UncoupledConstraintCorrection')
+
+    #para el Time integration and solver
+
+    sup.createObject('EulerImplicitSolver', name='odesolver')
+    sup.createObject('CGLinearSolver', name='Solver')
+
+
+    #para la visual
+    visual= Node(sup, "Visu")
+    visual.createObject('MeshObjLoader', name="loader", filename="STL/Soporte_v2.obj")# , triangulate=True)
+    visual.createObject('OglModel', name="Visual", src="@loader", color=[0.1,0.0,1.0])
+    visual.createObject('RigidMapping')
+
+
+
+   
+    # #para las colisiones
+    collision = sup.createChild("CubeCollisionModel")
+    collision.createObject('MeshObjLoader', name="loader", filename="STL/Soporte_v2.obj", triangulate=True)
+    
+    collision.createObject('MeshTopology', src="@loader")
+    collision.createObject('MechanicalObject')
+    
+    collision.createObject('Triangle')
+    collision.createObject('Line')
+    collision.createObject('Point')
+    
+    collision.createObject('RigidMapping')
+
+
+  
+def createScene(rootNode):
+    # -*- coding: utf-8 -*-
+    from stlib.scene import MainHeader, ContactHeader
+    from stlib.visuals import ShowGrid
+    from stlib.physics.rigid import Floor
+    from stlib.physics.rigid import Cube
+
+    m=MainHeader(rootNode,gravity=[0.0,-981.0,0.0])
+
+    m.getObject("VisualStyle").displayFlags='showForceFields showBehaviorModels showInteractionForceFields'
+
+    ContactHeader(rootNode, alarmDistance=4, contactDistance=3, frictionCoef=0.08)
+    ShowGrid(rootNode)
+    Support(rootNode)
+
+    Floor(rootNode,
+          translation=[0.0,-160.0,0.0],
+          isAStaticObject=True)
+
+
+    return rootNode
