@@ -69,7 +69,7 @@ def SArm(parentNode=None, name="SArm",
 
     CollisionMesh(eobject,
                  surfaceMeshFileName="STL/colli/parte6.stl",
-                 name="CollisionMeshAuto6", collisionGroup=[2])
+                 name="CollisionMeshAuto10", collisionGroup=[2])
 
     CollisionMesh(eobject,
                  surfaceMeshFileName="STL/colli/parte7.stl",
@@ -86,7 +86,6 @@ def SArm(parentNode=None, name="SArm",
     CollisionMesh(eobject,
                  surfaceMeshFileName="STL/colli/parte10.stl",
                  name="CollisionMeshAuto10", collisionGroup=[2])
-
 
     ArmController(sarm, cable)
 
