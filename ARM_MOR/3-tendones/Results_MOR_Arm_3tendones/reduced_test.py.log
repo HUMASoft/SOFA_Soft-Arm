@@ -1,0 +1,8 @@
+
+--- NEW SESSION: 25/06/2021 13:21:02 ---
+/Reduced_test/eobject_MOR/eobject/tendon1/MechanicalObject.velocity = 1.23771e-14 -2.86846e-14 7.40872e-15 -4.40013e-13 1.44325e-13 3.22571e-13 3.93867e-13 5.9319e-14 7.93488e-14 -1.60597e-14 1.65685e-13 2.79458e-13 6.86425e-13 -7.82481e-14 2.07883e-13
+/Reduced_test/eobject_MOR/eobject/tendon1/MechanicalObject.position = 35.0001 2.00067 10 34.995 39.995 9.99207 34.997 79.9959 9.98208 34.9944 119.995 9.97315 34.992 159.994 9.96648 34.9885 197.987 9.95599
+/Reduced_test/eobject_MOR/eobject/tendon1/MechanicalObject.size = 5
+/Reduced_test/eobject_MOR/eobject/tendon1/MechanicalObject.reserve = -1
+/Reduced_test/eobject_MOR/eobject/tendon1/CableConstraint.hasPullPoint = 1
+/Reduced_test/eobject_MOR/eobject/tendon1/CableConstraint.value = 62

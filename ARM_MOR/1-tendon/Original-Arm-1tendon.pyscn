@@ -1,0 +1,106 @@
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+import Sofa
+
+#  STLIB IMPORT
+from stlib.scene import MainHeader, ContactHeader
+from stlib.solver import DefaultSolver
+from stlib.physics.deformable import ElasticMaterialObject
+from stlib.physics.constraints import FixedBox
+from stlib.physics.collision import CollisionMesh
+from stlib.scene import Node
+from stlib.visuals import ShowGrid
+
+# SOFTROBOTS IMPORT
+from softrobots.actuators import PullingCable
+
+# SPLIB IMPORT
+from splib.loaders import loadPointListFromFile
+
+meshPath = os.path.dirname(os.path.abspath(__file__))+'/mesh/'
+
+#class ArmController(Sofa.PythonScriptController):
+#    def __init__(self, node, cable):
+#        self.cableconstraintvalue = cable.getObject("CableConstraint").findData('value')
+#        self.name = "ArmController"
+
+#    def onKeyPressed(self,c):
+#        if (c == "+"):
+#            self.cableconstraintvalue.value =  self.cableconstraintvalue.value[0][0] + 5.
+#            print ('hello !')
+#            print (self.cableconstraintvalue.value)
+#        if (c == "-"):
+#            self.cableconstraintvalue.value =  self.cableconstraintvalue.value[0][0] - 5.
+#            print ('bye !')
+#            print (self.cableconstraintvalue.value)
+
+#def SArm(parentNode=None, name="SArm",
+           #rotation=[0.0, 0.0, 0.0], translation=[0.0, 0.0, 0.0],
+           #fixingBox=[0.0,0.0,0.0], pullPointLocation=[0.0,0.0,0.0]):
+
+    #sarm = Node(parentNode, "SArm")
+
+
+
+
+    #CollisionMesh(eobject, surfaceMeshFileName="Brazo_20cm.stl", name="part0")
+
+    #ArmController(sarm, cable)
+
+def createScene(rootNode):
+    # -*- coding: utf-8 -*-
+
+    #m=MainHeader(rootNode, plugins=["SoftRobots","ModelOrderReduction","SofaPython"])
+    plugins=["SofaPython","SoftRobots","ModelOrderReduction"]
+    for name in plugins:
+          rootNode.createObject('RequiredPlugin', name=name, printLog=False)
+
+    #m.getObject("VisualStyle").displayFlags='showForceFields showBehaviorModels showInteractionForceFields'
+    rootNode.createObject('VisualStyle', displayFlags='showVisualModels showForceFields showBehaviorModels showInteractionForceFields')
+
+    ContactHeader(rootNode, alarmDistance=4, contactDistance=3, frictionCoef=0.08)
+
+    ShowGrid(rootNode)
+
+    rootNode.findData('gravity').value=[0.0,0.0,-9810];
+    rootNode.findData('dt').value=1
+
+    rootNode.createObject('OglSceneFrame', style="Arrows", alignment="TopRight")
+
+    rootNode.createObject('FreeMotionAnimationLoop')
+    rootNode.createObject('GenericConstraintSolver', tolerance="1e-6", maxIterations="1000")
+
+    eobject = ElasticMaterialObject(attachedTo=rootNode,
+                                   volumeMeshFileName=meshPath+'reduce1.vtk',
+                                   name='eobject',
+                                   withConstrain=False,
+                                   poissonRatio=0.3,
+                                   youngModulus=18000,
+                                   totalMass=0.5,
+                                   surfaceColor=[0.0, 0.3, 0.9],
+                                   surfaceMeshFileName=meshPath+'Brazo_20cm.stl',
+                                   rotation=[0.0, 0.0, 0.0],
+                                   translation=[0.0, 0.0, 0.0])
+
+    eobject.createObject('GenericConstraintCorrection', solverName='solver')
+
+    FixedBox(atPositions=[73, 10, 65, 0, 0, 0],
+        applyTo=eobject,
+        doVisualization=True)
+
+    tendon = PullingCable(attachedTo=eobject, name='tendon',
+                         cableGeometry=[[35.0, 2.0, 10.0],
+                         [35.0, 40.0, 10.0],
+                         [35.0, 80.0, 10.0],
+                         [35.0, 120.0, 10.0],
+                         [35.0, 160.0, 10.0],
+                         [35.0, 198.0, 10.0]])
+
+
+    #eobject = rootNode.createChild('eobject')
+
+
+
+    return rootNode
