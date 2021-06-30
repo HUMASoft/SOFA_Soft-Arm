@@ -16,8 +16,10 @@ MOR is a plugin developed by Sofa framework and the files downloaded during the 
 ## Results obtained
 
 - Debug and data folders (I have not uploaded them in this repository because they are too heavy)
-- Reduced-test.py containing the reduced model
+- Reduced-test.py containing the reduced model. (The reduced model of 1 and 3 tendon are uploaded but they will not run in Sofa because the data and debug folders are missing. The reduction should be performed again in order to visualize this model in Sofa. However, the code can be useful to see the changes done after the reduction (this is explained below)).
 
 ## Modifications of the reduced model
 
-- Modify the location
+- Modify the location of the FixedBox. When the reduction is performed, this box is translated in the z axis. In order to have the same location that was specified in the original code, it is necessary to change the value 32.5 by -32.5 when the nexBox is created.
+- Define the class ArmController to be able to control the length of the cables with the keys of the keyboard.
+- Call ArmController giving the right parameters. Be careful to include in the scene the GenericConstraintSolver.
